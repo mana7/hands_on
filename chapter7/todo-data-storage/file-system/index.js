@@ -24,11 +24,9 @@ exports.update = async (id, update) => {
   const fileName = `${__dirname}/${id}.json`
   return readFile(fileName, 'utf8').then(
     content => {
-      // const contentJson = JSON.stringify(content)
-      const todo = {
-        content,
-        update
-      }
+      const todo = JSON.parse(content)
+      todo.completed = update.completed
+      console.log('update',update)
       console.log('todo',todo)
       return writeFile(fileName, JSON.stringify(todo)).then(() => todo)
     },

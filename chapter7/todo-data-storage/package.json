@@ -7,12 +7,14 @@
     "express": "^4.17.1",
     "isomorphic-fetch": "^3.0.0",
     "next": "^10.0.3",
+    "sqlite3": "^5.0.0",
     "uuid": "^8.3.2"
   },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "file-system": "node app",
+    "sqlite": "node app",
     "start": "node"
   },
   "keywords": [],

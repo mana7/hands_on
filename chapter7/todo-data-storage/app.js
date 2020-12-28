@@ -19,9 +19,8 @@ app.get('/api/todos', (req,res,next) => {
 
 //ToDoの新規登録
 app.post('/api/todos', (req,res,next) => {
-  console.log('AAAA')
   const {title} = req.body
-  console.log('title',req.body.title)
+  console.log('title',title)
   if(typeof title !== 'string' || !title) {
     //titleがリクエストに含まれない場合はステータスコード400(Bad Request)
     const err = new Error('title is required')
@@ -31,15 +30,15 @@ app.post('/api/todos', (req,res,next) => {
 
   //ToDoの作成
   const todo = {id: uuidv4(), title, completed: false}
+  console.log('todo',todo)
   //ステータスコード201(Created)で結果を返す
-  console.log('dataStorage',dataStorage)
   dataStorage.create(todo).then(() => res.status(201).json(todo), next)
 })
 
 //Completedの設定、解除の共通処理
 function completedHandler(completed) {
   return(req,res,next) => {
-    dataStorage.update(req.params.id, {completed})
+    dataStorage.update(req.params.id, {completed})　//{completed: 変数completedの値}として生成される
     .then(todo => {
       if(todo){
         return res.json(todo)

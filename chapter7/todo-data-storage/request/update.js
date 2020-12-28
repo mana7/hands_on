@@ -7,7 +7,7 @@ const baseUrl = 'http://localhost:3000/api/todos'
 // PUTで、completedをtrueに変更
 async function main() {
   // console.log('hoge',`${baseUrl}/${_[0].id}/completed`)
-  const res = await fetch(`${baseUrl}/5f575b11-ed23-4007-a03f-760c2eab52dc/completed`,{method: 'PUT'})
+  const res = await fetch(`${baseUrl}/b91fd793-5f9f-4e2e-933c-b160bba4cebe/completed`,{method: 'PUT'})
   const result = await res.json() //isomorphic-fetchは、json()も非同期関数
   console.log(res.status, 'result', result)
 }
