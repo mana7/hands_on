@@ -1,5 +1,5 @@
-const { extname } = require('path')
-const { readdir, readFile, writeFile, unlink } = require('fs').promises
+const { extname } = require('path') //拡張子を取得する
+const { readdir, readFile, writeFile, unlink } = require('fs').promises //unlinkは、ファイルの削除
 
 exports.fetchAll = async() => {
   //同一ディレクトリ内に存在するファイルをすべて取得
@@ -36,7 +36,7 @@ exports.update = async (id, update) => {
 }
 
 exports.remove = (id) => {
-  return unlink(`${__dirname}/${id}.json`)
+  return unlink(`${__dirname}/${id}.json`) //todoの削除実装のため、todoのファイルを削除する
   .then(
     () => id,
     //ファイルが存在しない場合はnullを返し、それ以外はそのままエラーにする

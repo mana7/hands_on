@@ -1,6 +1,9 @@
 const express = require('express')
 const { v4: uuidv4 } = require('uuid')
 //実行されたスクリプトの名前に応じてデータストレージの実装を使い分ける
+//process.env.npm_lifecycle_eventには、
+//プログラムがpackage.jsonに定義されたスクリプトから実行された場合にそのスクリプトが設定される
+//スクリプト = requireするファイル名/ディレクトリ名となる
 const dataStorage = require(`./${process.env.npm_lifecycle_event}`)
 
 const app = express()

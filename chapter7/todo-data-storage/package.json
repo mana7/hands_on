@@ -6,6 +6,7 @@
   "dependencies": {
     "express": "^4.17.1",
     "isomorphic-fetch": "^3.0.0",
+    "level": "^6.0.1",
     "next": "^10.0.3",
     "sqlite3": "^5.0.0",
     "uuid": "^8.3.2"
@@ -15,6 +16,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "file-system": "node app",
     "sqlite": "node app",
+    "leveldb": "node app",
     "start": "node"
   },
   "keywords": [],

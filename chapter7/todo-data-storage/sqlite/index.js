@@ -1,5 +1,5 @@
-const {promisify} = require('util')
-const {join} = require('path')
+const {promisify} = require('util') //Promiseインスタンスを返却するようにするメソッド
+const {join} = require('path') //パスを連結するメソッド
 const sqlite3 = process.env.NODE_ENV === 'production'
   ? require('sqlite3')
   //production環境以外は冗長モードを利用
@@ -9,19 +9,28 @@ const sqlite3 = process.env.NODE_ENV === 'production'
 const db = new sqlite3.Database(join(__dirname, 'sqlite'))
 
 //コールバックパターンのメソッドをPromise化
-const dbGet = promisify(db.get.bind(db))
+const dbGet = promisify(db.get.bind(db))　//select文で、取得したいデータが1件の場合db.get()
+
+//updateやdelete文でdb.run()を使うが、where句に該当するデータがない場合にエラーを返さないので、
+//エラーを返すよう独自にPromise化する必要がある
 const dbRun = function(){
-  return new Promise((resolve,reject) =>
+  return new Promise((resolve,reject) => {
+    //applyは、第1引数がthisの固定となるので、関数(db.run)の中でdbをthisとして使う。
+    //また、第2引数は配列を渡すため、...argumentsという表記で、dbRunに渡される引数を配列化。
+    //その配列を、dbRunの正式な引数とする。処理結果が第2引数末尾のコールバックで解決する
+    //sqliteのdb.runならではの書き方であったりするので深くは考えなくて良さそう
     db.run.apply(db, [
       ...arguments,
       function(err){
         err ? reject(err) : resolve(this)
       }
     ])
-  )
+  })
 }
 
-const dbAll = promisify(db.all.bind(db))
+const dbAll = promisify(db.all.bind(db))　//select文で、取得したいデータが複数件の場合db.all()
+
+
 
 //作成済みでなければテーブルを作成するcreate table文を記述
 dbRun(`CREATE TABLE IF NOT EXISTS  todo (
@@ -33,6 +42,7 @@ dbRun(`CREATE TABLE IF NOT EXISTS  todo (
   console.error(err)
   process.exit(1)
 })
+
 
 //app.jsから実行される各メソッドを実装する
 
