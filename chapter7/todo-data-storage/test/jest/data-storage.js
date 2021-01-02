@@ -5,8 +5,7 @@ function sortToDoById (todos) {
 
 //各データストレージに対するテストをまとめて記述
 //3つのデータストレージに関するテストをfor文でループ実行
-// for (const dataStorageName of ['file-system', 'sqlite', 'leveldb']){
-for (const dataStorageName of ['leveldb']){
+for (const dataStorageName of ['file-system', 'sqlite', 'leveldb']){
   const {fetchAll, fetchByCompleted, create, update, remove} = 
     require(`../../${dataStorageName}`)
 
@@ -14,7 +13,6 @@ for (const dataStorageName of ['leveldb']){
     //毎回のテスト実行前に全てのToDoを削除
     beforeEach(async () => {
       const allTodos = await fetchAll()
-      console.log('allTodos',allTodos)
       await Promise.all(allTodos.map(({id}) => remove(id) ))
     })
 
@@ -43,7 +41,6 @@ for (const dataStorageName of ['leveldb']){
         'completedの値が、引数で指定したものと等しいToDoだけを取得できる',
         async () => {
           const a = await fetchAll()
-          console.log('AAA await fetchAll()', a)
           //初期状態の確認
           expect(await fetchByCompleted(true)).toEqual([])
           expect(await fetchByCompleted(false)).toEqual([])
@@ -121,7 +118,5 @@ for (const dataStorageName of ['leveldb']){
     })
 
   })
-
-
 
 }

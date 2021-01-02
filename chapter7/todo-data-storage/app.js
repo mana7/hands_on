@@ -4,7 +4,8 @@ const { v4: uuidv4 } = require('uuid')
 //process.env.npm_lifecycle_eventには、
 //プログラムがpackage.jsonに定義されたスクリプトから実行された場合にそのスクリプトが設定される
 //スクリプト = requireするファイル名/ディレクトリ名となる
-const dataStorage = require(`./${process.env.npm_lifecycle_event}`)
+// const dataStorage = require(`./${process.env.npm_lifecycle_event}`)
+const dataStorage = require(`./file-system`)
 
 const app = express()
 
@@ -76,7 +77,7 @@ app.use((err,req,res,next) => {
   res.status(err.statusCode || 500).json({error: err.message})
 })
 
-app.listen(3000)
+module.exports = app.listen(3000)
 
 //Next.jsによるルーティングのため追記↓
 // const next = require('next')
