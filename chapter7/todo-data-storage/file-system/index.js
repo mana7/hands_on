@@ -28,8 +28,8 @@ exports.update = async (id, update) => {
       if(update.title) {
         todo.title = update.title }
       else {todo.completed = update.completed}
-      console.log('update',update)
-      console.log('todo',todo)
+      // console.log('update',update)
+      // console.log('todo',todo)
       return writeFile(fileName, JSON.stringify(todo)).then(() => todo)
     },
     //ファイルが存在しない場合にはnullを返し、それ以外はそのままエラーにする
