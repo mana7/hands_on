@@ -40,7 +40,6 @@ for (const dataStorageName of ['file-system', 'sqlite', 'leveldb']){
       test(
         'completedの値が、引数で指定したものと等しいToDoだけを取得できる',
         async () => {
-          const a = await fetchAll()
           //初期状態の確認
           expect(await fetchByCompleted(true)).toEqual([])
           expect(await fetchByCompleted(false)).toEqual([])
